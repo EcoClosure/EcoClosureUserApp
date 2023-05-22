@@ -5,7 +5,12 @@ import Dash from "./Dash";
 import PanelSettings from "./PanelSettings";
 import { globalSignOut } from "../config/firebase";
 import {AiOutlineUser} from "react-icons/ai"
+import { userName } from "../config/firebase";
+
+
 const Page = ({page, setPage}) =>{
+    let uName = userName()
+    console.log(uName)
     const [dashPage, setDashPage] = useState("dash")
     return(
         // page
@@ -18,7 +23,7 @@ const Page = ({page, setPage}) =>{
                 </div>
                 {/* User */}
                 <div className="float-right">
-                    <p className="inline-block hover:cursor-default">Hello User</p>
+                    <p className="inline-block hover:cursor-default">Hello {uName}</p>
                     <AiOutlineUser onClick={() => {
                         globalSignOut()
                     }} className="w-10 h-10 m-2 inline-block hover:cursor-pointer"></AiOutlineUser>

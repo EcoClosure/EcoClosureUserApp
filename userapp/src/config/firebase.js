@@ -19,11 +19,13 @@ const firestore = firebase.firestore();
 const Users = firestore.collection('Users')
 const providerGoogle = new firebase.auth.GoogleAuthProvider();
 const providerEmail = new firebase.auth.EmailAuthProvider();
+let uName = ""
 
 export const signInWithGoogle = () =>{
   auth.signInWithPopup(providerGoogle)
   .then((result) => {
     if(result.additionalUserInfo.isNewUser === true){
+      uName = result.user.displayName
       Users.add({
         email: result.additionalUserInfo.profile.email,
         password: "N/A",
@@ -37,6 +39,7 @@ export const signInWithGoogle = () =>{
 export const signInWithEmailPass = (email, pass) =>{
   auth.signInWithEmailAndPassword(email, pass)
   .then((result) =>{
+    uName = result.user.displayName
     console.log(result)
   }).catch((error) => {
     console.log(error)
@@ -48,6 +51,11 @@ export const createWithEmailPass = (email, user, pass, cpass) => {
     auth.createUserWithEmailAndPassword(email, pass)
     .then((result)=>{
       if(result.additionalUserInfo.isNewUser === true){
+        console.log(result)
+        result.user.updateProfile({
+          displayName: user
+        })
+        uName = user
         Users.add({
           email: email,
           type: "email",
@@ -65,4 +73,8 @@ export const createWithEmailPass = (email, user, pass, cpass) => {
 export const globalSignOut = () =>{
   console.log("signed out")
   auth.signOut()  
+}
+
+export const userName = () =>{
+  return uName
 }
