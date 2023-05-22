@@ -24,8 +24,8 @@ let uName = ""
 export const signInWithGoogle = () =>{
   auth.signInWithPopup(providerGoogle)
   .then((result) => {
+    uName = result.user.displayName
     if(result.additionalUserInfo.isNewUser === true){
-      uName = result.user.displayName
       Users.add({
         email: result.additionalUserInfo.profile.email,
         password: "N/A",
