@@ -40,18 +40,17 @@ export const signInWithEmailPass = (email, pass) =>{
   auth.signInWithEmailAndPassword(email, pass)
   .then((result) =>{
     uName = result.user.displayName
-    console.log(result)
   }).catch((error) => {
     console.log(error)
   });
 }
 
-export const createWithEmailPass = (email, user, pass, cpass) => {
+export const createWithEmailPass = async (email, user, pass, cpass) => {
+  let res = ""
   if(pass == cpass){
-    auth.createUserWithEmailAndPassword(email, pass)
+    await auth.createUserWithEmailAndPassword(email, pass)
     .then((result)=>{
       if(result.additionalUserInfo.isNewUser === true){
-        console.log(result)
         result.user.updateProfile({
           displayName: user
         })
@@ -61,13 +60,17 @@ export const createWithEmailPass = (email, user, pass, cpass) => {
           type: "email",
           username: user
         }).catch((e)=>{
-          console.log(e)
+          res = e.message
         })
+        res = true
       }
     }).catch((e)=>{
-      console.log(e)
+      let error = e.message
+      console.log(error)
+      res = error
     })
   }
+  return res
 }
 
 export const globalSignOut = () =>{

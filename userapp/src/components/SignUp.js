@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { createWithEmailPass } from "../config/firebase";
+import Popup from 'reactjs-popup';
 const SignUp = ({login}) =>{
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
     const [user, setUser] = useState("")
     const [cpass, setCpass] = useState("")
-
+    const [open, setOpen] = useState(false);
+    const [error, setError] = useState("")
+    const closeModal = () => setOpen(false);
     const handleSubmit = (e) =>{
         e.preventDefault(); // Prevent form submission behavior
     }
+
     return(
         //center all
         <div className="flex justify-center h-screen">
@@ -76,13 +80,26 @@ const SignUp = ({login}) =>{
                                 className="border border-slate-500 rounded-lg h-10 w-1/2 px-2"
                             />
                         </div>
-                        
+
+                        <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+                            <div className="bg-slate-200">{error}</div>
+                        </Popup>
                         <div className="w-full flex justify-center pt-4">
                             <button 
                                 className="w-1/2 bg-green-400 rounded-lg flex items-center justify-center border h-10 drop-shadow-md hover:cursor-pointer hover:bg-green-500"
-                                onClick={()=>{
-                                    createWithEmailPass(email, user, pass, cpass)
-                                    login('login')
+                                onClick={async ()=>{
+                                    let a =createWithEmailPass(email, user, pass, cpass).then((a)=>{
+                                        console.log(a)
+                                        if(a === true){
+                                            login('login')
+                                        }else {
+                                            setError(a)
+                                            setOpen(true)
+                                        }   
+                                    })
+                                    
+                                        
+                                                                  
                                 }}
                             >
                                 <p className="text-white">Create Account</p>
