@@ -16,11 +16,50 @@ firebase.initializeApp({
 
 export const auth = firebase.auth();
 const firestore = firebase.firestore();
+const Users = firestore.collection('Users')
+const providerGoogle = new firebase.auth.GoogleAuthProvider();
+const providerEmail = new firebase.auth.EmailAuthProvider();
 
 export const signInWithGoogle = () =>{
-    const provider = new firebase.auth.GoogleAuthProvider();
-    console.log("this is called")
-    auth.signInWithPopup(provider)
+  auth.signInWithPopup(providerGoogle)
+  .then((result) => {
+    if(result.additionalUserInfo.isNewUser === true){
+      Users.add({
+        email: result.additionalUserInfo.profile.email,
+        password: "N/A",
+        type: "google acc"
+      })
+    }
+  })
+
+}
+
+export const signInWithEmailPass = (email, pass) =>{
+  auth.signInWithEmailAndPassword(email, pass)
+  .then((result) =>{
+    console.log(result)
+  }).catch((error) => {
+    console.log(error)
+  });
+}
+
+export const createWithEmailPass = (email, user, pass, cpass) => {
+  if(pass == cpass){
+    auth.createUserWithEmailAndPassword(email, pass)
+    .then((result)=>{
+      if(result.additionalUserInfo.isNewUser === true){
+        Users.add({
+          email: email,
+          type: "email",
+          username: user
+        }).catch((e)=>{
+          console.log(e)
+        })
+      }
+    }).catch((e)=>{
+      console.log(e)
+    })
+  }
 }
 
 export const globalSignOut = () =>{

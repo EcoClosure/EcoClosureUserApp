@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
-const Login = ({google, setPage}) =>{
+const Login = ({google, setPage, emailS, signup}) =>{
     const [email, setEmail] = useState("username")
     const [pass, setPass] = useState("username")
-
 
     const handleSubmit = (e) =>{
         e.preventDefault(); // Prevent form submission behavior
@@ -25,7 +24,7 @@ const Login = ({google, setPage}) =>{
                                 type="text"
                                 name="email"
                                 className="border border-slate-500 rounded-lg h-10 w-1/2 px-2"
-                                placeholder="Username"
+                                placeholder="Email"
                             />
                         </div>
                         <div className="py-2">
@@ -43,8 +42,8 @@ const Login = ({google, setPage}) =>{
                             </div>
                         </div>
                         <div className="w-full flex justify-center pt-4">
-                            <button  className="w-1/2 bg-green-400 rounded-lg flex items-center justify-center border h-10 drop-shadow-md hover:cursor-pointer hover:bg-green-500">
-                                <p className="text-white">Submit</p>
+                            <button onClick={() =>emailS(email, pass)} className="w-1/2 bg-green-400 rounded-lg flex items-center justify-center border h-10 drop-shadow-md hover:cursor-pointer hover:bg-green-500">
+                                <p className="text-white">Login</p>
                             </button>
                         </div>
 
@@ -63,6 +62,11 @@ const Login = ({google, setPage}) =>{
                             </button>
                         </div>
                     </form>
+                    <div className="pt-4" onClick={() => {
+                            signup('signup')
+                            }}>
+                        <p  className="inline-block">dont have an account?</p> <p className="text-sm inline-block hover:cursor-pointer text-green-400">join now</p>
+                    </div>
                 </div>
             </div>
         </div>
