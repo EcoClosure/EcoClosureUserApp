@@ -19,7 +19,7 @@ const SignUp = ({login}) =>{
         {/* center 1/3 */}
         <div className="w-full sm:w-full md:w-1/2 flex justify-center h-screen">
             <div className="flex-none text-center w-full">
-                <h1 className="text-4xl pt-4">Ecoclosure</h1>
+                <h1 onClick={()=>login('login')} className="text-4xl pt-4 hover:cursor-pointer">Ecoclosure</h1>
                 <h3 className="text-xl">Decarbonating Regenerable Technology for a Sustainable Future</h3>
                 <hr className="h-px my-4 bg-black border-0 dark:bg-black"></hr>
                 {/* form */}
@@ -96,17 +96,21 @@ const SignUp = ({login}) =>{
                                             setError(a)
                                             setOpen(true)
                                         }   
-                                    })
-                                    
-                                        
-                                                                  
+                                    })                              
                                 }}
                             >
                                 <p className="text-white">Create Account</p>
                             </button>
+
                         </div>
+
                     </form>
                     {/* end form */}
+                    <div onClick={()=>login('login')} className="w-full flex justify-center pt-5">
+                            <div className="w-1/2">
+                                <p className="float-left text-green-500 hover:cursor-pointer">back to login</p>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
