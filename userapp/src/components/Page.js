@@ -13,6 +13,7 @@ import { userName } from "../config/firebase";
 const Page = ({page, setPage}) =>{
     let uName = userName()
     const [dashPage, setDashPage] = useState("devices")
+    const [drop, setDrop] = useState(false)
     return(
         // page
         <div className="h-screen w-screen">
@@ -26,9 +27,26 @@ const Page = ({page, setPage}) =>{
                 <div className="float-right">
                     <p className="inline-block hover:cursor-default">Hello {uName}</p>
                     <AiOutlineUser onClick={() => {
-                        globalSignOut()
+                        if(drop == true){
+                            setDrop(false)
+                        } else {
+                            setDrop(true)
+                        }
+                        
                     }} className="w-10 h-10 m-2 inline-block hover:cursor-pointer"></AiOutlineUser>
                 </div>
+                {drop?<div>
+                    
+                    <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                    <div class="py-1" role="none">
+                        <p class="text-gray-700 block px-4 py-2 text-sm hover:cursor-pointer" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</p>
+                        <p class="text-gray-700 block px-4 py-2 text-sm hover:cursor-pointer" role="menuitem" tabindex="-1" id="menu-item-1">Support</p>
+                        <p class="text-gray-700 block px-4 py-2 text-sm hover:cursor-pointer" role="menuitem" tabindex="-1" id="menu-item-2">License</p>
+                        <p onClick={()=>{globalSignOut()}} class="text-gray-700 block px-4 py-2 text-sm hover:cursor-pointer" role="menuitem" tabindex="-1" id="menu-item-3">Sign Out</p>
+                    </div>
+                    </div>
+                </div>:<div/>}
+
             </div>
             {/* body */}
             {
