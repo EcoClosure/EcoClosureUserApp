@@ -13,7 +13,7 @@ const Login = ({google, setPage, emailS, signup}) =>{
             {/* center 1/3 */}
             <div className="w-full sm:w-full md:w-1/2 flex justify-center h-screen">
                 <div className="flex-none text-center w-full">
-                    <h1 className="text-4xl pt-4">Ecoclosure</h1>
+                    <h1 onClick={() => signup('login')} className="text-4xl pt-4 hover:cursor-pointer">Ecoclosure</h1>
                     <h3 className="text-xl">Decarbonating Regenerable Technology for a Sustainable Future</h3>
                     <hr className="h-px my-4 bg-black border-0 dark:bg-black"></hr>
 

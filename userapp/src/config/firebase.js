@@ -24,12 +24,14 @@ let uName = ""
 export const signInWithGoogle = () =>{
   auth.signInWithPopup(providerGoogle)
   .then((result) => {
+    console.log(result)
     uName = result.user.displayName
     if(result.additionalUserInfo.isNewUser === true){
       Users.add({
         email: result.additionalUserInfo.profile.email,
         password: "N/A",
-        type: "google acc"
+        type: "google acc",
+        id: result.user.uid
       })
     }
   })
@@ -58,7 +60,8 @@ export const createWithEmailPass = async (email, user, pass, cpass) => {
         Users.add({
           email: email,
           type: "email",
-          username: user
+          username: user,
+          id: result.user.uid
         }).catch((e)=>{
           res = e.message
         })
@@ -76,6 +79,10 @@ export const createWithEmailPass = async (email, user, pass, cpass) => {
 export const globalSignOut = () =>{
   console.log("signed out")
   auth.signOut()  
+}
+
+export const setUname = (name) => {
+  uName = name
 }
 
 export const userName = () =>{

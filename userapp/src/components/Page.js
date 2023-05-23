@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "./NavBar";
-import Card from "./Card";
-import Dash from "./Dash";
+import Devices from "./Devices";
+import Account from "./Account";
+import Settings from "./Settings";
+import Contact from "./Contact";
 import PanelSettings from "./PanelSettings";
 import { globalSignOut } from "../config/firebase";
 import {AiOutlineUser} from "react-icons/ai"
@@ -10,8 +12,7 @@ import { userName } from "../config/firebase";
 
 const Page = ({page, setPage}) =>{
     let uName = userName()
-    console.log(uName)
-    const [dashPage, setDashPage] = useState("dash")
+    const [dashPage, setDashPage] = useState("devices")
     return(
         // page
         <div className="h-screen w-screen">
@@ -19,7 +20,7 @@ const Page = ({page, setPage}) =>{
             <div className="">
                 {/* Nav */}
                 <div className="inline-block w-1/4 p-2">
-                    <Nav selected={page} onSelect={setPage} dash={setDashPage}></Nav>
+                    <Nav selected={page} onSelect={setDashPage} dash={setDashPage}></Nav>
                 </div>
                 {/* User */}
                 <div className="float-right">
@@ -31,10 +32,12 @@ const Page = ({page, setPage}) =>{
             </div>
             {/* body */}
             {
-                (dashPage == "dash") ? <Dash setPage={setDashPage}/>
+                (dashPage == "devices") ? <Devices setPage={setDashPage}/> 
+                : (dashPage == "settings") ? <Settings/> 
+                :(dashPage == "contact") ? <Contact/> 
+                :(dashPage == "account") ? <Account/> 
                 : <PanelSettings/>
             }
-            
         </div>
     )
 }

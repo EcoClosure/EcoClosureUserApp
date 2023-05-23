@@ -17,7 +17,7 @@ const Nav = ({selected, onSelect, dash}) =>{
         <div className="grid grid-cols-4 items-center justify-center border-b overflow-visible ">
             <div onClick={() => {
                 onSelect('devices')
-                dash("dash")
+                dash("devices")
                 }} 
                 className={`h-10 items-center flex justify-center hover:cursor-pointer ${t1}`}>
                 <p>Devices</p>
