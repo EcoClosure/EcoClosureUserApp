@@ -10,13 +10,14 @@ import {AiOutlineUser} from "react-icons/ai"
 import { userName } from "../config/firebase";
 
 
-const Page = ({page, setPage}) =>{
-    let uName = userName()
+const Page = ({page, setPage, user}) =>{    
     const [dashPage, setDashPage] = useState("devices")
     const [drop, setDrop] = useState(false)
+    let uName = user.displayName
+
     return(
         // page
-        <div className="h-screen w-screen">
+        <div className="h-screen w-screen overflow-hidden">
             {/* Header */}
             <div className="">
                 {/* Nav */}
@@ -36,7 +37,6 @@ const Page = ({page, setPage}) =>{
                     }} className="w-10 h-10 m-2 inline-block hover:cursor-pointer"></AiOutlineUser>
                 </div>
                 {drop?<div>
-                    
                     <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                     <div class="py-1" role="none">
                         <p class="text-gray-700 block px-4 py-2 text-sm hover:cursor-pointer" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</p>
@@ -50,7 +50,7 @@ const Page = ({page, setPage}) =>{
             </div>
             {/* body */}
             {
-                (dashPage == "devices") ? <Devices setPage={setDashPage}/> 
+                (dashPage == "devices") ? <Devices setPage={setDashPage} user={user}/> 
                 : (dashPage == "settings") ? <Settings/> 
                 :(dashPage == "contact") ? <Contact/> 
                 :(dashPage == "account") ? <Account/> 

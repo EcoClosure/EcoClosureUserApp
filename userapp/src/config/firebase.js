@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/firestore'
 import 'firebase/compat/auth'
+import { query, where } from "firebase/firestore";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
@@ -17,8 +18,8 @@ firebase.initializeApp({
 export const auth = firebase.auth();
 const firestore = firebase.firestore();
 const Users = firestore.collection('Users')
+const Panels = firestore.collection('Panels')
 const providerGoogle = new firebase.auth.GoogleAuthProvider();
-const providerEmail = new firebase.auth.EmailAuthProvider();
 let uName = ""
 
 export const signInWithGoogle = () =>{
@@ -88,3 +89,12 @@ export const setUname = (name) => {
 export const userName = () =>{
   return uName
 }
+
+export const panelQuery = async (uid) => {
+  let docs = [];
+  const querySnapshot = await Panels.where("owner", "==", uid).get();
+  querySnapshot.forEach((doc) => {
+    docs.push(doc.data());
+  });
+  return docs;
+};
