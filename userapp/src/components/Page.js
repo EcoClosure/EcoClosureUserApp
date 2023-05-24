@@ -21,12 +21,12 @@ const Page = ({page, setPage, user}) =>{
             {/* Header */}
             <div className="">
                 {/* Nav */}
-                <div className="inline-block w-3/5 md:w-2/5 p-2">
+                <div className="inline-block w-4/5 md:w-2/5 p-2">
                     <Nav selected={page} onSelect={setDashPage} dash={setDashPage}></Nav>
                 </div>
                 {/* User */}
                 <div className="float-right">
-                    <p className="inline-block hover:cursor-default">Hello {uName}</p>
+                    <p className="md:inline-block hover:cursor-default hidden">Hello {uName}</p>
                     <AiOutlineUser onClick={() => {
                         if(drop == true){
                             setDrop(false)
