@@ -38,8 +38,8 @@ const Devices = ({setPage, user}) =>{
             loaded ? <div>
                 <div className="flex h-4/6 justify-center px-10 py-6">
                     <div className="flex-none w-full">
-                        <h1 className="inline-block text-6xl ">Your Devices</h1>
-                            <GrAdd onClick={()=>{console.log('clicked')}} className="h-14 w-14 inline-block float-right hover:cursor-pointer "/>
+                        <h1 className="inline-block text-4xl md:text-6xl ">Your Devices</h1>
+                            <GrAdd onClick={()=>{console.log('clicked')}} className="h-10 w-10 md:h-14 md:w-14 inline-block float-right hover:cursor-pointer "/>
                     </div>
                 </div>
             <div className="flex justify-center h-4/6 w-full  overflow-scroll border-t " >
