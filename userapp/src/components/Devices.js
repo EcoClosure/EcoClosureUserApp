@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { panelQuery } from "../config/firebase";
+import {GrAdd} from 'react-icons/gr'
+
 
 const Devices = ({setPage, user}) =>{
     const [loaded, setLoaded] = useState(false)
@@ -34,11 +36,16 @@ const Devices = ({setPage, user}) =>{
     <div>
         {
             loaded ? <div>
-            <div className="flex justify-center h-5/6 w-full  overflow-scroll border-t " >
+                <div className="flex h-4/6 justify-center px-10 py-6">
+                    <div className="flex-none w-full">
+                        <h1 className="inline-block text-6xl ">Your Devices</h1>
+                            <GrAdd onClick={()=>{console.log('clicked')}} className="h-14 w-14 inline-block float-right hover:cursor-pointer "/>
+                    </div>
+                </div>
+            <div className="flex justify-center h-4/6 w-full  overflow-scroll border-t " >
                 <InfiniteScroll               
                     dataLength={len}
                     loader={<h4>Loading...</h4>}
-                    
                     endMessage={
                         <p style={{ textAlign: 'center' }}>
                           <b>Yay! You have seen it all</b>
