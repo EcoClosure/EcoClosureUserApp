@@ -1,10 +1,15 @@
 import React from "react";
 import panel from'../files/panel.png';
 import {CiEdit} from 'react-icons/ci'
-const Card = ({name}) =>{
+const Card = ({name, setName, setEdit}) =>{
     let status = 'good'
     let mode = 'off'
     let edited = '1/12/23'
+    const handleClick = () =>{
+        console.log('clicked')
+        setName(name)
+        setEdit(true)
+    }
     return(
         <div className="md:w-1/4 w-full md:inline-block">
             <div className="w-full h-full flex justify-center">
@@ -17,7 +22,7 @@ const Card = ({name}) =>{
                             <div className="inline-block w-2/3 ">
                                 <div className="w-full ">
                                     <h1 className="inline-block">{name}</h1>
-                                    <CiEdit className="h-8 w-8 inline-block float-right"/>
+                                    <CiEdit onClick={handleClick} className="h-8 w-8 inline-block float-right"/>
                                 </div>
                                 <div>
                                     <div>

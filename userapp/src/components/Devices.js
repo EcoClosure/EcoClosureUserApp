@@ -3,13 +3,14 @@ import Card from "./Card";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { panelQuery } from "../config/firebase";
 import {GrAdd} from 'react-icons/gr'
-
+import DeviceEdit from "./DeviceEdit";
 
 const Devices = ({setPage, user}) =>{
     const [loaded, setLoaded] = useState(false)
     const [data, setData] = useState(null)
     const [len, setLen] = useState(1)
-
+    const [edit, setEdit] = useState(false)
+    const [editName, setEditName] = useState("")
     const getData = async () => {
         const res = await panelQuery(user.uid);
         if (data) {
@@ -26,6 +27,8 @@ const Devices = ({setPage, user}) =>{
         getData()
     },[])
 
+ 
+
     useEffect(()=>{
         if(data){
             setLoaded(true)
@@ -33,7 +36,11 @@ const Devices = ({setPage, user}) =>{
     },[data])
     
     return(
+    
     <div>
+        {
+        edit && <DeviceEdit name={editName} edit={edit} setEdit={setEdit}></DeviceEdit>
+        }
         {
             loaded ? <div>
                 <div className="flex h-4/6 justify-center px-10 py-6">
@@ -48,15 +55,14 @@ const Devices = ({setPage, user}) =>{
                     loader={<h4>Loading...</h4>}
                     endMessage={
                         <p style={{ textAlign: 'center' }}>
-                          <b>Yay! You have seen it all</b>
+                          <b>You have reached the end of your panels</b>
                         </p>
                     }
                 >
                     <div className="w-screen flex justify-center h-full">
                         <div className="w-11/12 h-full border-t">
                         {data.map((item)=>{
-                            console.log(item)
-                            return <Card name={item.name} key={item.id} />;
+                            return <Card name={item.name} setEdit={setEdit} setName={setEditName} key={item.id} />;
                         })}
 
                         </div>
