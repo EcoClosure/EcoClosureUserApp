@@ -1,9 +1,8 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/firestore'
 import 'firebase/compat/auth'
-import { query, where } from "firebase/firestore";
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore'
+import { browserSessionPersistence } from 'firebase/auth';
+import { setPersistence } from 'firebase/auth';
 
 firebase.initializeApp({
   apiKey: "AIzaSyCTW3EenAtVx_GB50oCLEbEF5-7ZibZHr0",
@@ -23,34 +22,39 @@ const providerGoogle = new firebase.auth.GoogleAuthProvider();
 let uName = ""
 
 export const signInWithGoogle = () =>{
-  auth.signInWithPopup(providerGoogle)
-  .then((result) => {
-    console.log(result)
-    uName = result.user.displayName
-    if(result.additionalUserInfo.isNewUser === true){
-      Users.add({
-        email: result.additionalUserInfo.profile.email,
-        password: "N/A",
-        type: "google acc",
-        id: result.user.uid
-      })
-    }
+  setPersistence(auth, browserSessionPersistence)
+  .then(()=>{
+    auth.signInWithPopup(providerGoogle)
+    .then((result) => {
+      console.log(result)
+      uName = result.user.displayName
+      if(result.additionalUserInfo.isNewUser === true){
+        Users.add({
+          email: result.additionalUserInfo.profile.email,
+          password: "N/A",
+          type: "google acc",
+          id: result.user.uid
+        })
+      }
+    })
   })
-
 }
 
 export const signInWithEmailPass = (email, pass) =>{
-  auth.signInWithEmailAndPassword(email, pass)
-  .then((result) =>{
-    uName = result.user.displayName
-  }).catch((error) => {
-    console.log(error)
-  });
+  setPersistence(auth, browserSessionPersistence)
+  .then(()=>{
+    auth.signInWithEmailAndPassword(email, pass)
+    .then((result) =>{
+      uName = result.user.displayName
+    }).catch((error) => {
+      console.log(error)
+    });
+  })
 }
 
 export const createWithEmailPass = async (email, user, pass, cpass) => {
   let res = ""
-  if(pass == cpass){
+  if(pass === cpass){
     await auth.createUserWithEmailAndPassword(email, pass)
     .then((result)=>{
       if(result.additionalUserInfo.isNewUser === true){
@@ -98,3 +102,23 @@ export const panelQuery = async (uid) => {
   });
   return docs;
 };
+
+export const addDevice = async (id) =>{
+  const querySnapshot = await Panels.where("id", "==", id).get();
+  let res = "";
+  if(querySnapshot.size === 1){
+    let t = querySnapshot.docs[0].get("owner")
+    console.log(t)
+    if(querySnapshot.docs[0].get("owner") === ""){
+      res = "pannel found"
+      const deviceRef = querySnapshot.docs[0]
+      deviceRef.ref.update({owner: auth.currentUser.uid})
+    } else {
+      console.log(querySnapshot.docs[0].get("owner"))
+      res = "this pannel already has an owner"
+    }
+  } else {
+    res = "could not find a pannel with that id"
+  }
+  return res
+}

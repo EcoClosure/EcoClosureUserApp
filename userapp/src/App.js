@@ -3,7 +3,6 @@ import Login from "./components/Login";
 import Page from "./components/Page";
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 import { auth, signInWithGoogle, signInWithEmailPass, setUname, userName} from "./config/firebase";
 import SignUp from "./components/SignUp";
@@ -28,6 +27,7 @@ function App() {
   return (
     <div className="App">
       {
+        
         user ? <Page page={page} setPage={setPage} user={user}/> :
         accPage === 'login' ? <Login google={signInWithGoogle} emailS={signInWithEmailPass} setPage={setPage} signup={setAccPage} test={accPage}/>:
         <SignUp login={setAccPage}/> 
