@@ -19,17 +19,30 @@ const Devices = ({setPage, user}) =>{
           return;
         }
         if (res) {
+            console.log(res)
           setData(res);
           setLen(res.length);
           setLoaded(true);
         }
       };
 
+
+    
     useEffect(()=>{
         getData()
     },[])
 
- 
+    const [isPopupActive, setPopupActive] = useState(false);
+
+    const togglePopup = () => {
+      setPopupActive(!isPopupActive);
+    }
+  
+    const closePopup = (event) => {
+      if (event.target.className.includes("overlay")) {
+        setPopupActive(false);
+      }
+    } 
 
     useEffect(()=>{
         if(data){
@@ -69,7 +82,8 @@ const Devices = ({setPage, user}) =>{
                     <div className="w-screen flex justify-center h-full">
                         <div className="w-11/12 h-full border-t">
                         {data.map((item)=>{
-                            return <Card name={item.name} setEdit={setEdit} setName={setEditName} key={item.id} />;
+                            console.log(item)
+                            return <Card name={item.name} setEdit={setEdit} setName={setEditName} key={item.id} setPage={setPage}/>;
                         })}
 
                         </div>
