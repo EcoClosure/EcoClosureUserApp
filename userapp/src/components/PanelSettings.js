@@ -20,10 +20,25 @@ const PanelSettings = () =>{
         { label: "Panel 2", value: "p2" },
     ]
 
-    const [age, setAge] = React.useState('');
+    const [nutrition, setNutrition] = React.useState('');
+    const [p1Drain, setp1Drain] = React.useState('')
+    const [p2Drain, setp2Drain] = React.useState('')
+    const [concentration, setConcentration] = React.useState('')
 
-    const handleChangeAge = (event) => {
-      setAge(event.target.value);
+    const handlenutrition = (event) => {
+      setNutrition(event.target.value);
+    };
+
+    const handlep1Drain = (event) => {
+        setp1Drain(event.target.value);
+    };
+
+    const handlep2Drain = (event) => {
+        setp2Drain(event.target.value);
+    };
+
+    const handleconcentration = (event) => {
+        setConcentration(event.target.value);
     };
 
     const [checked, setChecked] = React.useState(false);
@@ -173,60 +188,89 @@ const PanelSettings = () =>{
                     <div className="text-green-400 text-2xl m-2 font-bold">Manual Settings</div>
                     {/* Media Pump */}
                     <div className="pt-[5%] flex m-2">  
-                        <p className="text-xl pt-[.5%] pr-[2%]">Media Pump</p>
-                        <Switch
-                            {...label}
-                            checked={checked}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    {/* Algae Pump */}
-                    <div className="pt-[5%] flex m-2">  
-                        <p className="text-xl pt-[.5%] pr-[3%]">Algae Pump</p>
-                        <Switch
-                            {...label}
-                            checked={checked}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    {/* Drain 1 */}
-                    <div className="pt-[5%] flex m-2">  
-                        <p className="text-xl pt-[.5%] pr-[10.5%]">Drain 1</p>
-                        <Switch
-                            {...label}
-                            checked={checked}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    {/* Drain 2 */}
-                    <div className="pt-[5%] flex m-2">  
-                        <p className="text-xl pt-[.5%] pr-[10.5%]">Drain 2</p>
-                        <Switch
-                            {...label}
-                            checked={checked}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    {/* Concentration */}
-                    <div className="flex justify-left pl-[2%] pt-[5%]">
-                        <p className="text-xl pt-[1.5%] pr-[3%]">Concentration</p>
+                        <p className="text-xl pt-[2%] pr-[2%]">Auto Nutrition</p>
                         <Box sx={{ width: '50%' }}>
                             <FormControl fullWidth>
                                 <Select
                                 id="demo-simple-select"
-                                value={age}
-                                onChange={handleChangeAge}
+                                value={nutrition}
+                                onChange={handlenutrition}
                                 >
-                                <MenuItem value={25}>Twenty Five</MenuItem>
-                                <MenuItem value={20}>Fifty</MenuItem>
-                                <MenuItem value={30}>One Hundred</MenuItem>
+                                <MenuItem value={25}>Once per week</MenuItem>
+                                <MenuItem value={20}>Once per two weeks</MenuItem>
+                                <MenuItem value={30}>Once per month</MenuItem>
                                 </Select>
                             </FormControl>
                         </Box>
+                    </div>
+
+                    {/* Drain Panel 1 */}
+                    <div className="pt-[5%] flex m-2">  
+                        <p className="text-xl pt-[2%] pr-[4%]">Panel 1 Drain</p>
+                        <Box sx={{ width: '50%' }}>
+                            <FormControl fullWidth>
+                                <Select
+                                id="demo-simple-select"
+                                value={p1Drain}
+                                onChange={handlep1Drain}
+                                >
+                                <MenuItem value={25}>Drain 100%</MenuItem>
+                                <MenuItem value={20}>Drain 50%</MenuItem>
+                                <MenuItem value={30}>Drain 25%</MenuItem>
+                                <MenuItem value={0}>No Drain</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </div>
+
+                    {/* Drain 2 */}
+                    <div className="pt-[5%] flex m-2">  
+                        <p className="text-xl pt-[2%] pr-[4%]">Panel 2 Drain</p>
+                        <Box sx={{ width: '50%' }}>
+                            <FormControl fullWidth>
+                                <Select
+                                id="demo-simple-select"
+                                value={p2Drain}
+                                onChange={handlep2Drain}
+                                >
+                                <MenuItem value={25}>Drain 100%</MenuItem>
+                                <MenuItem value={20}>Drain 50%</MenuItem>
+                                <MenuItem value={30}>Drain 25%</MenuItem>
+                                <MenuItem value={0}>No Drain</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </div>
+
+                    {/* Concentration */}
+                    <div className="flex justify-left pl-[2%] pt-[5%]">
+                        <p className="text-xl pb-[.5%] pr-[2%]">
+                            <span>Auto Harvest </span>
+                            <br/>
+                            <span>Concentration</span>
+                        </p>
+                        
+                        <Box sx={{ width: '50%' }}>
+                            <FormControl fullWidth>
+                                <Select
+                                id="demo-simple-select"
+                                value={concentration}
+                                onChange={handleconcentration}
+                                >
+                                <MenuItem value={25}>25%</MenuItem>
+                                <MenuItem value={50}>50%</MenuItem>
+                                <MenuItem value={100}>100%</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    </div>
+
+                    <div className="flex justify-center pt-[5%]">
+                        <Button 
+                            variant="contained"
+                            sx={{width: '95%', background: '#52af77'}}
+                        
+                        >Submit</Button>
                     </div>
 
 
