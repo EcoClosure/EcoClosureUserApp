@@ -10,7 +10,8 @@ import Switch from '@mui/material/Switch';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select  from '@mui/material/Select';
-
+import { MdOutlineDeviceThermostat } from "react-icons/md";
+import icon from "../files/thermometer-svgrepo-com.svg"
 
 const PanelSettings = () =>{
     const [choice, setChoice] = useState("p1")
@@ -93,6 +94,20 @@ const PanelSettings = () =>{
             </div>
             <div className="flex justify-around h-full w-full">
                 {/* left */}
+                <div className="w-1/3 h-5/6 bg-slate-100 shadow-lg m-2 inline-block">
+                    <div className="text-green-400 text-2xl m-2 font-bold">Live Status</div>
+                    <div className="w-full aspect-[2/1] p-4">
+                        <div className="bg-gray-400 rounded-md w-full h-full ">
+                            <div className="justify-center flex pt-8 w-full"><img src={icon} className="h-20 w-20"/></div>
+                            <div className="justify-center flex w-full text-3xl pt-4 text-white"><p>Water Temperature</p></div>
+                            <div className="justify-center flex w-full text-xl pt-4 text-gray-200">21{'\u00b0'}C</div>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 grid-rows-1 w-full aspect-[2/1] gap-4 -mt-4 p-4">
+                        <div className="bg-gray-400 rounded-md"> </div>
+                        <div className="bg-gray-400 rounded-md"> </div>
+                    </div>
+                </div>
                 <div className="w-1/3 h-5/6 bg-slate-100 shadow-lg m-2 inline-block">
                     <div className="text-green-400 text-2xl m-2 font-bold">Window Settings</div>
                     {/* Pannel thick */}
@@ -275,6 +290,7 @@ const PanelSettings = () =>{
 
 
                 </div>
+                
             </div>
         </div>
     )
